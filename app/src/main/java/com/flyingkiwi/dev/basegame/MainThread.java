@@ -24,7 +24,7 @@ public class MainThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
 
-        this.game = new GameMain();
+        this.game = new GameMain(surfaceHolder, gamePanel);
     }
 
     public void setRunning(boolean running) {
@@ -33,23 +33,6 @@ public class MainThread extends Thread {
 
     @Override
     public void run() {
-        Canvas canvas = null;
-        Log.d(TAG, "Begining Game Loop");
-
-        while (running) {
-            try {
-                canvas = this.surfaceHolder.lockCanvas();
-                synchronized (surfaceHolder) {
-                    this.gamePanel.onDraw(canvas);
-                }
-            } finally {
-                if (canvas != null) {
-                    surfaceHolder.unlockCanvasAndPost(canvas);
-                }
-            }
-            game.update(1f);
-            // render state to the screen
-        }
-        Log.d(TAG, "Ended Game Loop");
+        game.update(1f);
     }
 }

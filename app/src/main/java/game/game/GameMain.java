@@ -1,13 +1,21 @@
 package game.game;
 
+import android.content.res.Resources;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.util.Log;
+import android.view.SurfaceHolder;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
+import com.flyingkiwi.dev.basegame.MainGamePanel;
+import com.flyingkiwi.dev.basegame.R;
 
+import game.components.DrawableComponent;
 import game.components.PositionComponent;
 import game.components.VelocityComponent;
 import game.systems.MovementSystem;
+import game.systems.RenderSystem;
 
 /**
  * Main Game
@@ -19,16 +27,19 @@ public class GameMain implements GameMainInterface {
     private PooledEngine engine;
     private Entity entity;
 
-    public GameMain() {
+    public GameMain(SurfaceHolder surfaceHolder, MainGamePanel gamePanel) {
         this.engine = new PooledEngine();
 
         // Add all systems to the engine
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new RenderSystem(surfaceHolder, gamePanel.getResources()));
 
         // Add all entities to the engine
         this.entity = engine.createEntity()
-                .add(new PositionComponent(19, 10))
-                .add(new VelocityComponent(2,2));
+                .add(new PositionComponent(29, 100))
+                .add(new VelocityComponent(2,2))
+                .add(new DrawableComponent(R.drawable.droid_1))
+        ;
         engine.addEntity(entity);
 
         Log.d(TAG, "Entity ID: " + Long.toString(entity.getId()));

@@ -70,7 +70,5 @@ public class MainGamePanel extends SurfaceView implements
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        canvas.drawBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.droid_1), 10, 10, null);
-    }
+    protected void onDraw(Canvas canvas) {       }
 }
