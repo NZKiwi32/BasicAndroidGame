@@ -25,7 +25,7 @@ import game.systems.RenderSystem;
 public class GameMain implements GameMainInterface {
     public static final String TAG = GameMain.class.getSimpleName();
     private PooledEngine engine;
-    private Entity entity;
+    private World world;
 
     public GameMain(SurfaceHolder surfaceHolder, MainGamePanel gamePanel) {
         this.engine = new PooledEngine();
@@ -34,28 +34,12 @@ public class GameMain implements GameMainInterface {
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(surfaceHolder, gamePanel.getResources()));
 
-        // Add all entities to the engine
-        this.entity = engine.createEntity()
-                .add(new PositionComponent(29, 100))
-                .add(new VelocityComponent(2,2))
-                .add(new DrawableComponent(R.drawable.droid_1))
-        ;
-        engine.addEntity(entity);
-
-        Entity entity2 = engine.createEntity()
-                .add(new PositionComponent(79, 220))
-                .add(new VelocityComponent(3,2))
-                .add(new DrawableComponent(R.drawable.droid_1))
-        ;
-
-        engine.addEntity(entity2);
-
-        Log.d(TAG, "Entity ID: " + Long.toString(entity.getId()));
+        World world = new World(engine);
+        world.create();
     }
 
     @Override
     public void update(float time) {
         engine.update(time);
-        Log.d(TAG, entity.getComponent(PositionComponent.class).toString());
     }
 }
