@@ -1,8 +1,10 @@
 package com.flyingkiwi.dev.basegame;
 
-import android.graphics.Canvas;
-import android.util.Log;
+import android.content.Context;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.SurfaceHolder;
+import android.view.WindowManager;
 
 import game.game.GameMain;
 
@@ -24,7 +26,12 @@ public class MainThread extends Thread {
         this.surfaceHolder = surfaceHolder;
         this.gamePanel = gamePanel;
 
-        this.game = new GameMain(surfaceHolder, gamePanel);
+
+        Display display = ((WindowManager) gamePanel.getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+        Point screenSize = new Point();
+        display.getSize(screenSize);
+
+        this.game = new GameMain(surfaceHolder, gamePanel, screenSize.x, screenSize.y);
     }
 
     public void setRunning(boolean running) {

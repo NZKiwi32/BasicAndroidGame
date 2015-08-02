@@ -1,10 +1,7 @@
 package com.flyingkiwi.dev.basegame;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -58,14 +55,6 @@ public class MainGamePanel extends SurfaceView implements
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            if (event.getY() > getHeight() - 50) {
-                thread.setRunning(false);
-                ((Activity) getContext()).finish();
-            } else {
-                Log.d(TAG, "Corrds: x=" + event.getX() + ", y=" + event.getY());
-            }
-        }
         return super.onTouchEvent(event);
     }
 

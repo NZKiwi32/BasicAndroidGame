@@ -4,7 +4,6 @@ import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -12,8 +11,6 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.utils.Array;
-import com.flyingkiwi.dev.basegame.MainGamePanel;
-import com.flyingkiwi.dev.basegame.R;
 
 import game.components.DrawableComponent;
 import game.components.PositionComponent;
@@ -50,7 +47,7 @@ public class RenderSystem extends IteratingSystem {
         canvas.drawColor(Color.BLACK);
     }
 
-    protected void drawEntities (Canvas canvas) {
+    protected void drawRenderQueue(Canvas canvas) {
         for ( Entity e : this.renderQueue) {
             canvas.drawBitmap(BitmapFactory.decodeResource(this.resources, drawableMapper.get(e).resourceID), positionMapper.get(e).x, positionMapper.get(e).y, null);
         }
@@ -68,7 +65,7 @@ public class RenderSystem extends IteratingSystem {
 
             synchronized (surfaceHolder) {
                 this.clearCanvas(canvas);
-                this.drawEntities(canvas);
+                this.drawRenderQueue(canvas);
             }
         } finally {
             if (canvas != null) {
