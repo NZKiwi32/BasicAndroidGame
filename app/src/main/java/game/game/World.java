@@ -7,6 +7,7 @@ import com.flyingkiwi.dev.basegame.R;
 
 import game.components.DrawableComponent;
 import game.components.PositionComponent;
+import game.components.VelocityComponent;
 
 /**
  * World
@@ -40,6 +41,7 @@ public class World {
             Entity ball = this.engine.createEntity();
             ball.add(new PositionComponent((int) Math.floor(Math.random() * this.screenWidth), (int) Math.floor(Math.random() * this.screenHeight)))
                     .add(new DrawableComponent(R.drawable.droid_1))
+                    .add(new VelocityComponent((float)Math.random()*4-2, (float)Math.random()*4-2))
             ;
             balls.add(ball);
             engine.addEntity(ball);
