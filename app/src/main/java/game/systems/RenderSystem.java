@@ -3,6 +3,8 @@ package game.systems;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.SurfaceHolder;
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -44,6 +46,9 @@ public class RenderSystem extends IteratingSystem {
         renderQueue.add(entity);
     }
 
+    protected void clearCanvas (Canvas canvas) {
+        canvas.drawColor(Color.BLACK);
+    }
 
     protected void drawEntities (Canvas canvas) {
         for ( Entity e : this.renderQueue) {
@@ -60,7 +65,9 @@ public class RenderSystem extends IteratingSystem {
         Canvas canvas = null;
         try {
             canvas = this.surfaceHolder.lockCanvas();
+
             synchronized (surfaceHolder) {
+                this.clearCanvas(canvas);
                 this.drawEntities(canvas);
             }
         } finally {

@@ -42,6 +42,14 @@ public class GameMain implements GameMainInterface {
         ;
         engine.addEntity(entity);
 
+        Entity entity2 = engine.createEntity()
+                .add(new PositionComponent(79, 220))
+                .add(new VelocityComponent(3,2))
+                .add(new DrawableComponent(R.drawable.droid_1))
+        ;
+
+        engine.addEntity(entity2);
+
         Log.d(TAG, "Entity ID: " + Long.toString(entity.getId()));
     }
 

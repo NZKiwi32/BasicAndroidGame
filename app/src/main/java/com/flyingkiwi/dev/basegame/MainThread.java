@@ -33,6 +33,8 @@ public class MainThread extends Thread {
 
     @Override
     public void run() {
-        game.update(1f);
+        while(running) {
+            game.update(1f);
+        }
     }
 }
