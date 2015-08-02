@@ -31,7 +31,7 @@ public class MainThread extends Thread {
         Point screenSize = new Point();
         display.getSize(screenSize);
 
-        this.game = new GameMain(surfaceHolder, gamePanel, screenSize.x, screenSize.y);
+        this.game = new GameMain(this.surfaceHolder, this.gamePanel, screenSize.x, screenSize.y);
     }
 
     public void setRunning(boolean running) {
