@@ -40,7 +40,7 @@ public class MainThread extends Thread {
 
     @Override
     public void run() {
-        while(running) {
+        while (running) {
             game.update(1f);
         }
     }

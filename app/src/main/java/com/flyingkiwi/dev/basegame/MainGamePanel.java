@@ -59,5 +59,6 @@ public class MainGamePanel extends SurfaceView implements
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {       }
+    protected void onDraw(Canvas canvas) {
+    }
 }

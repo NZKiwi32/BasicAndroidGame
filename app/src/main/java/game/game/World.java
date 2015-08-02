@@ -41,7 +41,7 @@ public class World {
             Entity ball = this.engine.createEntity();
             ball.add(new PositionComponent((int) Math.floor(Math.random() * this.screenWidth), (int) Math.floor(Math.random() * this.screenHeight)))
                     .add(new DrawableComponent(R.drawable.droid_1))
-                    .add(new VelocityComponent((float)Math.random()*4-2, (float)Math.random()*4-2))
+                    .add(new VelocityComponent((float) Math.random() * 4 - 2, (float) Math.random() * 4 - 2))
             ;
             balls.add(ball);
             engine.addEntity(ball);
@@ -53,7 +53,7 @@ public class World {
     /**
      * Create the base entities in the world.
      */
-    private void createEntities () {
+    private void createEntities() {
         generateBalls(10);
     }
 }

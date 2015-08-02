@@ -34,8 +34,8 @@ public class RenderSystem extends IteratingSystem {
         this.resources = resources;
 
         this.renderQueue = new Array<>();
-        this.drawableMapper =  ComponentMapper.getFor(DrawableComponent.class);
-        this.positionMapper =  ComponentMapper.getFor(PositionComponent.class);
+        this.drawableMapper = ComponentMapper.getFor(DrawableComponent.class);
+        this.positionMapper = ComponentMapper.getFor(PositionComponent.class);
     }
 
     @Override
@@ -43,12 +43,12 @@ public class RenderSystem extends IteratingSystem {
         renderQueue.add(entity);
     }
 
-    protected void clearCanvas (Canvas canvas) {
+    protected void clearCanvas(Canvas canvas) {
         canvas.drawColor(Color.BLACK);
     }
 
     protected void drawRenderQueue(Canvas canvas) {
-        for ( Entity e : this.renderQueue) {
+        for (Entity e : this.renderQueue) {
             canvas.drawBitmap(BitmapFactory.decodeResource(this.resources, drawableMapper.get(e).resourceID), positionMapper.get(e).x, positionMapper.get(e).y, null);
         }
 
