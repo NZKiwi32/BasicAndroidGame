@@ -26,7 +26,7 @@ public class GameMain implements GameMainInterface {
         engine.addSystem(new MovementSystem());
         engine.addSystem(new RenderSystem(surfaceHolder, gamePanel.getResources()));
 
-        World world = new World(engine, screenWidth, screenHeight);
+        world = new World(engine, screenWidth, screenHeight);
 
         world.create();
     }
