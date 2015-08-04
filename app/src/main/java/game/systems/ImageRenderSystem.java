@@ -12,7 +12,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.utils.Array;
 
-import game.components.DrawableComponent;
+import game.components.ImageDrawableComponent;
 import game.components.PositionComponent;
 
 /**
@@ -20,21 +20,21 @@ import game.components.PositionComponent;
  * System which draws DrawableComponents to the android view.
  * Created by Steven on 7/30/2015.
  */
-public class RenderSystem extends IteratingSystem {
-    ComponentMapper<DrawableComponent> drawableMapper;
+public class ImageRenderSystem extends IteratingSystem {
+    ComponentMapper<ImageDrawableComponent> drawableMapper;
     ComponentMapper<PositionComponent> positionMapper;
     private Array<Entity> renderQueue;
     private SurfaceHolder surfaceHolder;
     private Resources resources;
 
-    public RenderSystem(SurfaceHolder surfaceHolder, Resources resources) {
-        super(Family.all(DrawableComponent.class, PositionComponent.class).get());
+    public ImageRenderSystem(SurfaceHolder surfaceHolder, Resources resources) {
+        super(Family.all(ImageDrawableComponent.class, PositionComponent.class).get());
 
         this.surfaceHolder = surfaceHolder;
         this.resources = resources;
 
         this.renderQueue = new Array<>();
-        this.drawableMapper = ComponentMapper.getFor(DrawableComponent.class);
+        this.drawableMapper = ComponentMapper.getFor(ImageDrawableComponent.class);
         this.positionMapper = ComponentMapper.getFor(PositionComponent.class);
     }
 
