@@ -2,12 +2,11 @@ package game.game;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
-import com.badlogic.gdx.utils.Array;
-import com.flyingkiwi.dev.basegame.R;
 
 import game.components.DrawableComponent;
 import game.components.PositionComponent;
-import game.components.VelocityComponent;
+import game.components.ShapeComponent;
+import game.geom.PolygonPath;
 
 /**
  * World
@@ -34,26 +33,29 @@ public class World {
 
     }
 
-    private Array<Entity> generateBalls(int count) {
-        Array<Entity> balls = new Array<>();
+    private Entity generatePlayerShape() {
+        Entity player = this.engine.createEntity();
 
-        for (int i = 0; i < count; i++) {
-            Entity ball = this.engine.createEntity();
-            ball.add(new PositionComponent((int) Math.floor(Math.random() * this.screenWidth), (int) Math.floor(Math.random() * this.screenHeight)))
-                    .add(new DrawableComponent(R.drawable.droid_1))
-                    .add(new VelocityComponent((float) Math.random() * 4 - 2, (float) Math.random() * 4 - 2))
+        int[] xPoints = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+        int[] yPoints = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+
+        try {
+            player.add(new ShapeComponent(new PolygonPath(xPoints, yPoints)))
+                    .add(new DrawableComponent())
+                    .add(new PositionComponent(40, 30))
             ;
-            balls.add(ball);
-            engine.addEntity(ball);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        return balls;
+        return player;
     }
 
     /**
      * Create the base entities in the world.
      */
     private void createEntities() {
-        generateBalls(10);
+        generatePlayerShape();
+
     }
 }
