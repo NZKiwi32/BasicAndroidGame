@@ -3,7 +3,7 @@ package game.systems;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
+import android.graphics.Path;
 import android.view.SurfaceHolder;
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -51,12 +51,13 @@ public class ShapeRenderSystem extends IteratingSystem {
     }
 
     protected void drawRenderQueue(Canvas canvas) {
-        Log.d(TAG, "RENDER QUEUE SIZE:" + this.renderQueue.size);
         Paint p = new Paint();
         p.setColor(Color.BLUE);
         p.setStyle(Paint.Style.STROKE);
         for (Entity e : this.renderQueue) {
-            canvas.drawPath(shapeMapper.get(e).shape.getPath(), p);
+            Path path = new Path(shapeMapper.get(e).shape.getPath());
+            path.offset(positionMapper.get(e).x, positionMapper.get(e).y, null);
+            canvas.drawPath(path, p);
         }
 
         renderQueue.clear();
@@ -70,6 +71,7 @@ public class ShapeRenderSystem extends IteratingSystem {
         try {
             canvas = this.surfaceHolder.lockCanvas();
 
+            //noinspection SynchronizeOnNonFinalField
             synchronized (surfaceHolder) {
                 this.clearCanvas(canvas);
                 this.drawRenderQueue(canvas);

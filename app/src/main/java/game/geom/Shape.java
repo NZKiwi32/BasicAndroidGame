@@ -11,4 +11,6 @@ public interface Shape {
     boolean contains( int x, int y );
 
     Path getPath();
+
+    Shape centerPath();
 }

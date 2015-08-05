@@ -7,10 +7,10 @@ import com.badlogic.ashley.core.Component;
  * Created by Steven on 7/29/2015.
  */
 public class PositionComponent extends Component {
-    public int x;
-    public int y;
+    public float x;
+    public float y;
 
-    public PositionComponent(int x, int y) {
+    public PositionComponent(float x, float y) {
         this.x = x;
         this.y = y;
     }

@@ -1,6 +1,7 @@
 package game.geom;
 
 import android.graphics.Path;
+import android.graphics.RectF;
 
 /**
  * Path of a polygon
@@ -59,6 +60,16 @@ public class PolygonPath implements Shape {
     }
 
     /**
+     * Center the shape
+     * Displaces the shape by half its width and  height so the middle of the shape is the origin point.
+     */
+    public Shape centerPath() {
+        RectF bounds = new RectF();
+        this.p.computeBounds(bounds, false);
+        this.p.offset(-1 * bounds.width() / 2, -1 * bounds.height() / 2);
+        return this;
+    }
+    /**
      * Checks if the PolygonPath contains a point.
      *
      * @param x Point horizontal pos.
@@ -69,6 +80,7 @@ public class PolygonPath implements Shape {
     @Override
     public boolean contains(int x, int y) {
         boolean c = false;
+        //noinspection UnusedAssignment
         int i, j = 0;
         for (i = 0, j = polySides - 1; i < polySides; j = i++) {
             if (((polyY[i] > y) != (polyY[j] > y))
