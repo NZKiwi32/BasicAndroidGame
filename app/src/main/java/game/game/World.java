@@ -1,5 +1,7 @@
 package game.game;
 
+import android.util.Log;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 
@@ -14,6 +16,7 @@ import game.geom.PolygonPath;
  * Created by Steven on 8/2/2015.
  */
 public class World {
+    public static final String TAG = World.class.getSimpleName();
     private PooledEngine engine;
     private int screenWidth;
     private int screenHeight;
@@ -36,17 +39,14 @@ public class World {
     private Entity generatePlayerShape() {
         Entity player = this.engine.createEntity();
 
-        int[] xPoints = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
-        int[] yPoints = {10, 20, 30, 40, 50, 60, 70, 80, 90, 100};
+        int[] xPoints = {0, 0, 20, 60, 70};
+        int[] yPoints = {0, 20, 40, 40, 30};
+        Log.d(TAG, "GOT INTO GENERATE PLAYERS");
+        player.add(new ShapeComponent(new PolygonPath(xPoints, yPoints)))
+                .add(new DrawableComponent())
+                .add(new PositionComponent(40, 30))
+        ;
 
-        try {
-            player.add(new ShapeComponent(new PolygonPath(xPoints, yPoints)))
-                    .add(new DrawableComponent())
-                    .add(new PositionComponent(40, 30))
-            ;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         return player;
     }

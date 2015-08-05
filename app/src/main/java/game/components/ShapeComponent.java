@@ -9,7 +9,7 @@ import game.geom.Shape;
  * Created by Steven on 8/4/2015.
  */
 public class ShapeComponent extends Component {
-    Shape shape;
+    public Shape shape;
 
     public ShapeComponent(Shape shape) {
         this.shape = shape;

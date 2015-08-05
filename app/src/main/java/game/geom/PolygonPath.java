@@ -19,7 +19,7 @@ public class PolygonPath implements Shape {
     // Number of sides in the polygon.
     protected int polySides;
 
-    public PolygonPath(int[] xPoints, int[] yPoints) throws Exception {
+    public PolygonPath(int[] xPoints, int[] yPoints) {
         this.polyX = xPoints;
         this.polyY = yPoints;
         this.polySides = xPoints.length;
@@ -27,16 +27,16 @@ public class PolygonPath implements Shape {
         p = this.formPath();
     }
 
-    protected Path formPath() throws Exception {
+    protected Path formPath() {
         p = new Path();
 
         // First draw point is the initial polygon point.
         p.moveTo(this.polyX[0], this.polyY[0]);
 
         // Protect from bad polygon position counts.
-        if (this.polyX.length != this.polyY.length) {
-            throw new Exception("Created " + PolygonPath.class.getSimpleName() + " with unequal number of x and y coordinates.");
-        }
+//        if (this.polyX.length != this.polyY.length) {
+//            throw new Exception("Created " + PolygonPath.class.getSimpleName() + " with unequal number of x and y coordinates.");
+//        }
 
         // Loop the polygon points adding lines between them.
         for (int i = 1; i < this.polyX.length && i < this.polyY.length; i++) {
