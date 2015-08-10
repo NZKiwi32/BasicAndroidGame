@@ -28,7 +28,6 @@ public class GameMain implements GameMainInterface {
         engine.addSystem(new ShapeRenderSystem(surfaceHolder));
 
         world = new World(engine, screenWidth, screenHeight);
-        this.engine.getEntities().size();
         world.create();
     }
 
