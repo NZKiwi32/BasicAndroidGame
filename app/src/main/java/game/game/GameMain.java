@@ -5,7 +5,6 @@ import android.view.SurfaceHolder;
 import com.badlogic.ashley.core.PooledEngine;
 import com.flyingkiwi.dev.basegame.MainGamePanel;
 
-import game.systems.ImageRenderSystem;
 import game.systems.MovementSystem;
 import game.systems.ShapeRenderSystem;
 
@@ -25,7 +24,7 @@ public class GameMain implements GameMainInterface {
 
         // Add all systems to the engine
         engine.addSystem(new MovementSystem());
-        engine.addSystem(new ImageRenderSystem(surfaceHolder, gamePanel.getResources()));
+        // engine.addSystem(new ImageRenderSystem(surfaceHolder, gamePanel.getResources()));
         engine.addSystem(new ShapeRenderSystem(surfaceHolder));
 
         world = new World(engine, screenWidth, screenHeight);
