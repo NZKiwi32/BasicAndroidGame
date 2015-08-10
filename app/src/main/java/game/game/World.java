@@ -7,6 +7,7 @@ import game.components.DrawableComponent;
 import game.components.PositionComponent;
 import game.components.ShapeComponent;
 import game.geom.PolygonPath;
+import game.geom.PolygonShapeGenerator;
 
 /**
  * World
@@ -35,19 +36,18 @@ public class World {
     }
 
     private Entity generatePlayerShape() {
-        Entity player = this.engine.createEntity();
+
 
         float xPos = this.screenWidth / 2;
         float yPos = this.screenHeight / 2;
-        int[] xPoints = {0, 0, 20, 60, 70};
-        int[] yPoints = {0, 20, 40, 40, 30};
-
-        player.add(new ShapeComponent(new PolygonPath(xPoints, yPoints).centerPath()))
+        PolygonPath hexPolyPath = PolygonShapeGenerator.generateHexagon(25f);
+        Entity player = this.engine.createEntity();
+        player.add(new ShapeComponent(hexPolyPath.centerPath()))
                 .add(new DrawableComponent())
                 .add(new PositionComponent(xPos, yPos))
         ;
-
         engine.addEntity(player);
+
         return player;
     }
 
