@@ -69,6 +69,29 @@ public class PolygonPath implements Shape {
         this.p.offset(-1 * bounds.width() / 2, -1 * bounds.height() / 2);
         return this;
     }
+
+    public Shape rotateAroundPoint(float cx, float cy, float angle) {
+        float s = (float) Math.sin(Math.toRadians(angle));
+        float c = (float) Math.cos(Math.toRadians(angle));
+
+        for (int i = 0; i < this.polyX.length; i++) {
+            float px = this.polyX[i];
+            float py = this.polyY[i];
+
+            // place point at origin
+            //  px -= cx;
+            //  py -= cy;
+
+            float xnew = px * c - py * s;
+            float ynew = px * s + py * c;
+
+            this.polyX[i] = xnew; //+ cx;
+            this.polyY[i] = ynew; //+ cy;
+        }
+        this.formPath();
+
+        return this;
+    }
     /**
      * Checks if the PolygonPath contains a point.
      *

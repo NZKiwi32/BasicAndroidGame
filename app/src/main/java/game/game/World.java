@@ -41,8 +41,9 @@ public class World {
         float xPos = this.screenWidth / 2;
         float yPos = this.screenHeight / 2;
         PolygonPath hexPolyPath = PolygonShapeGenerator.generateHexagon(25f);
+//        hexPolyPath.centerPath();
         Entity player = this.engine.createEntity();
-        player.add(new ShapeComponent(hexPolyPath.centerPath()))
+        player.add(new ShapeComponent(hexPolyPath.rotateAroundPoint(xPos, yPos, 45)))
                 .add(new DrawableComponent())
                 .add(new PositionComponent(xPos, yPos))
         ;
