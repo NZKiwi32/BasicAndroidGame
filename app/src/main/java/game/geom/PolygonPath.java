@@ -15,12 +15,12 @@ public class PolygonPath implements Shape {
     protected Path p;
 
     // Polygon coordinates.
-    protected int[] polyY, polyX;
+    protected float[] polyY, polyX;
 
     // Number of sides in the polygon.
     protected int polySides;
 
-    public PolygonPath(int[] xPoints, int[] yPoints) {
+    public PolygonPath(float[] xPoints, float[] yPoints) {
         this.polyX = xPoints;
         this.polyY = yPoints;
         this.polySides = xPoints.length;
