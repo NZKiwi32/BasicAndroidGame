@@ -8,9 +8,5 @@ import com.badlogic.ashley.core.Component;
  * Created by Steven on 7/30/2015.
  */
 public class DrawableComponent extends Component {
-    public int resourceID;
 
-    public DrawableComponent(int resourceID) {
-        this.resourceID = resourceID;
-    }
 }

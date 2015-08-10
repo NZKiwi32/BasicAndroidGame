@@ -2,15 +2,19 @@ package com.flyingkiwi.dev.basegame;
 
 
 import android.os.Bundle;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
 public class MainActivity extends ActionBarActivity {
     public static final String TAG = MainActivity.class.getSimpleName();
+    private GestureDetectorCompat mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +22,10 @@ public class MainActivity extends ActionBarActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(new MainGamePanel(this));
         Log.d(TAG, "View Added");
+
+        mDetector = new GestureDetectorCompat(this, new MyGestureListener());
     }
 
     @Override
@@ -46,6 +51,12 @@ public class MainActivity extends ActionBarActivity {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        this.mDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    @Override
     protected void onDestroy() {
         Log.d(TAG, "Destroying...");
         super.onDestroy();
@@ -55,5 +66,22 @@ public class MainActivity extends ActionBarActivity {
     protected void onStop() {
         Log.d(TAG, "Stopping...");
         super.onStop();
+    }
+
+    class MyGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final String DEBUG_TAG = "Gestures";
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.d(DEBUG_TAG, "onDown: " + event.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            Log.d(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
+            return true;
+        }
     }
 }

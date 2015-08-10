@@ -1,9 +1,9 @@
 package game.systems;
 
-import android.content.res.Resources;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.view.SurfaceHolder;
 
 import com.badlogic.ashley.core.ComponentMapper;
@@ -14,27 +14,30 @@ import com.badlogic.gdx.utils.Array;
 
 import game.components.DrawableComponent;
 import game.components.PositionComponent;
+import game.components.ShapeComponent;
 
 /**
  * Render System
- * System which draws DrawableComponents to the android view.
+ * System which draws Shape Components to the android view.
  * Created by Steven on 7/30/2015.
  */
-public class RenderSystem extends IteratingSystem {
+public class ShapeRenderSystem extends IteratingSystem {
+    public static final String TAG = ShapeRenderSystem.class.getSimpleName();
     ComponentMapper<DrawableComponent> drawableMapper;
+    ComponentMapper<ShapeComponent> shapeMapper;
     ComponentMapper<PositionComponent> positionMapper;
+
     private Array<Entity> renderQueue;
     private SurfaceHolder surfaceHolder;
-    private Resources resources;
 
-    public RenderSystem(SurfaceHolder surfaceHolder, Resources resources) {
-        super(Family.all(DrawableComponent.class, PositionComponent.class).get());
+    public ShapeRenderSystem(SurfaceHolder surfaceHolder) {
+        super(Family.all(DrawableComponent.class, PositionComponent.class, ShapeComponent.class).get());
 
         this.surfaceHolder = surfaceHolder;
-        this.resources = resources;
 
         this.renderQueue = new Array<>();
         this.drawableMapper = ComponentMapper.getFor(DrawableComponent.class);
+        this.shapeMapper = ComponentMapper.getFor(ShapeComponent.class);
         this.positionMapper = ComponentMapper.getFor(PositionComponent.class);
     }
 
@@ -48,8 +51,13 @@ public class RenderSystem extends IteratingSystem {
     }
 
     protected void drawRenderQueue(Canvas canvas) {
+        Paint p = new Paint();
+        p.setColor(Color.BLUE);
+        p.setStyle(Paint.Style.STROKE);
         for (Entity e : this.renderQueue) {
-            canvas.drawBitmap(BitmapFactory.decodeResource(this.resources, drawableMapper.get(e).resourceID), positionMapper.get(e).x, positionMapper.get(e).y, null);
+            Path path = new Path(shapeMapper.get(e).shape.getPath());
+            path.offset(positionMapper.get(e).x, positionMapper.get(e).y, null);
+            canvas.drawPath(path, p);
         }
 
         renderQueue.clear();
@@ -63,6 +71,7 @@ public class RenderSystem extends IteratingSystem {
         try {
             canvas = this.surfaceHolder.lockCanvas();
 
+            //noinspection SynchronizeOnNonFinalField
             synchronized (surfaceHolder) {
                 this.clearCanvas(canvas);
                 this.drawRenderQueue(canvas);
