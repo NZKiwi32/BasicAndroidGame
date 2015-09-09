@@ -9,7 +9,3 @@ The user must swipe over these dots to get them into Goal buckets.
 * Uses a Component Entity System called Ashley
 https://github.com/libgdx/ashley/
 * Android Specific dependencies should be injected into the game so this is platform independent.
-
-References:
-* LibGDX - https://github.com/libgdx/libgdx/wiki
-* Ashley - https://github.com/libgdx/ashley/wiki
